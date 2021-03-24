@@ -11,7 +11,7 @@ pip install -r requirements.txt
 ### Run
 
 ```shell
-./manage.py runserver_plus
+./manage.py runserver_plus 8080
 ```
 
 ### Import sample data
@@ -21,5 +21,5 @@ pip install -r requirements.txt
 ./manage.py createsuperuser
 ./manage.py sample_oauth
 ./manage.py sample_users
-./manage.py runserver_plus
+./manage.py runserver_plus 8080
 ```
