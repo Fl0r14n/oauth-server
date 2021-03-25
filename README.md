@@ -23,3 +23,25 @@ pip install -r requirements.txt
 ./manage.py sample_users
 ./manage.py runserver_plus 8080
 ```
+
+## Test with resource server
+
+### Import sample data
+
+```shell
+./manage.py sample_data
+```
+
+### Run backend
+
+```shell
+./manage.py runserver_plus 8080
+```
+
+### Run frontend
+
+```shell
+cd client
+npm start
+```
+

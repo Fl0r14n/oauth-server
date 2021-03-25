@@ -30,6 +30,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +43,8 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'corsheaders',
     'oauth',
+    'tastypie',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -109,6 +112,12 @@ LOGIN_URL = 'admin/login/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('de', gettext('German')),
+    ('ro', gettext('Romanian'))
+)
 
 LANGUAGE_CODE = 'en-us'
 
@@ -133,6 +142,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+TASTYPIE_DEFAULT_FORMATS = ['json']
+
+if DEBUG:
+    TASTYPIE_FULL_DEBUG = True
 
 if DEBUG:
     RECAPTCHA_PUBLIC_KEY = '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'

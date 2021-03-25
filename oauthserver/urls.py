@@ -18,10 +18,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.models import Group
+from tastypie.models import ApiKey
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('oauth.urls')),
+    path('', include('api.urls')),
 ]
 
 if settings.DEBUG:
@@ -33,3 +35,4 @@ admin.site.site_header = "OAuth-Server"
 admin.site.site_title = "OAuth-Server Admin"
 admin.site.index_title = "Welcome to OAuth-Server Admin Portal"
 admin.site.unregister(Group)
+admin.site.unregister(ApiKey)
