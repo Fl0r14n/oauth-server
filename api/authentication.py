@@ -5,6 +5,7 @@ from django.utils import timezone
 from oauth2_provider.models import get_access_token_model
 from tastypie.authentication import Authentication
 
+from api.introspection import OAuthIntrospection
 from oauth.authentication import OAuthError, OAuthTokenExpiredError, \
     OAuthTokenError
 
@@ -31,7 +32,9 @@ def handle_oauth_user(request):
     if not key:
         request.user = AnonymousUser()
     else:
-        request.user = verify_access_token(key)
+        oauth_introspection = OAuthIntrospection()
+        request.user = oauth_introspection.introspect(key)
+        # request.user = verify_access_token(key)
     return request.user
 
 

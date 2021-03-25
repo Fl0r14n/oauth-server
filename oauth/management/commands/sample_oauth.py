@@ -30,6 +30,14 @@ applications = [
         'skip_authorization': True,
         'redirect_uris': 'https://localhost:4200 http://localhost:4200'
     },
+    {
+        'name': 'Introspect',
+        'client_type': Application.CLIENT_CONFIDENTIAL,
+        'client_id': 'client_introspect',
+        'client_secret': 'client_secret',
+        'authorization_grant_type': Application.GRANT_CLIENT_CREDENTIALS,
+        'skip_authorization': True
+    }
 ]
 
 

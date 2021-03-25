@@ -141,6 +141,14 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'read': 'Read scope',
+        'write': 'Write scope',
+        'introspection': 'Introspect token scope',
+    }
+}
+
 CORS_ORIGIN_ALLOW_ALL = True
 
 TASTYPIE_DEFAULT_FORMATS = ['json']
