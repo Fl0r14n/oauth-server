@@ -3,10 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 import {Config} from '../app/services/config';
+import {OAuthType} from 'ngx-oauth';
 
 export const environment: Config = {
   production: false,
   apiHost: '',
+  grantType: OAuthType.RESOURCE,
   clientId: 'client_password',
   clientSecret: 'client_secret',
   tokenPath: '/o/token/',

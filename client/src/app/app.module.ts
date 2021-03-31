@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent} from './app.component';
-import {OAuthModule, OAuthType} from 'ngx-oauth';
+import {OAuthModule} from 'ngx-oauth';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {LocaleInterceptor} from './services/locale';
 import {RECAPTCHA_SETTINGS} from 'ng-recaptcha';
@@ -14,7 +14,15 @@ import {Observable} from 'rxjs';
 import {ConfigModule} from './services/config';
 import {ComponentsModule} from './components';
 
-const {clientId, clientSecret, tokenPath, revokePath, apiHost, captchaSiteKey} = environment;
+const {
+  grantType,
+  clientId,
+  clientSecret,
+  tokenPath,
+  revokePath,
+  apiHost,
+  captchaSiteKey
+} = environment;
 
 export class I18nLoader implements TranslateLoader {
 
@@ -37,7 +45,7 @@ export class I18nLoader implements TranslateLoader {
   imports: [
     BrowserModule,
     OAuthModule.forRoot({
-      type: OAuthType.RESOURCE,
+      type: grantType,
       config: {
         clientId,
         clientSecret,
