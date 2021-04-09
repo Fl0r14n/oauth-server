@@ -2,13 +2,36 @@
 
 A test oauth server
 
-### Build
+## Get just the auth-server up and running
+
+```shell
+docker-compose pull
+docker-compose build be
+docker-compose up be
+```
+
+init database
+
+```shell
+docker-compose run be bash
+```
+
+then paste de following
+
+```shell
+./manage.py migrate --run-syncdb
+./manage.py createsuperuser
+./manage.py sample_oauth
+./manage.py sample_users
+```
+
+### Dev Build
 
 ```shell
 pip install -r requirements.txt
 ```
 
-### Run
+### Dev Run
 
 ```shell
 ./manage.py runserver_plus 8080
@@ -21,15 +44,6 @@ pip install -r requirements.txt
 ./manage.py createsuperuser
 ./manage.py sample_oauth
 ./manage.py sample_users
-./manage.py runserver_plus 8080
-```
-
-## Test with resource server
-
-### Import sample data
-
-```shell
-./manage.py sample_data
 ```
 
 ### Run backend
@@ -38,7 +52,7 @@ pip install -r requirements.txt
 ./manage.py runserver_plus 8080
 ```
 
-### Run frontend
+### Dev Test with frontend
 
 ```shell
 cd client
@@ -48,13 +62,13 @@ npm start
 ### Docker build backend
 
 ```shell
-docker build -t upt-events_be .
+docker build -t oauth-server_be .
 ```
 
 run:
 
 ```shell
-docker run -d -p 8000:8000 upt-events_be
+docker run -d -p 8000:8000 oauth-server_be
 ```
 
 ## Docker-compose
@@ -78,12 +92,6 @@ Stop
 
 ```shell
    docker-compose stop
-```
-
-if you just want to run the backend:
-
-```shell
-   docker-compose up be
 ```
 
 #### Import initial data
@@ -130,6 +138,7 @@ if you just want to remove the data
 ```
 
 #### Debug with docker
+
 * add `import ipdb; ipdb.set_trace()` where you want to debug
 * run `docker-compose build be`
 * for ipdb add in be in docker-compose.yml
