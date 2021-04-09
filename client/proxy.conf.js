@@ -1,11 +1,16 @@
+const proxyTarget = process && process.env ? process.env.PROXY_TARGET : null;
+
 const PROXY_CONFIG = [
   {
     context: [
       '/o/**',
       '/account/**',
-      '/api/v1/**'
+      '/api/v1/**',
+      '/admin/**',
+      '/static/**',
+      '/media/**',
     ],
-    target: 'http://localhost:8080',
+    target: proxyTarget || 'http://localhost:8080',
     secure: false,
   }
 ];

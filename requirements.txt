@@ -21,3 +21,10 @@ django-tastypie==0.14.3
 Pillow===8.1.0
 requests-oauthlib===1.3.0
 
+#db
+psycopg2-binary==2.8.6
+
+#prod server
+gunicorn==20.1.0
+whitenoise==5.2.0
+

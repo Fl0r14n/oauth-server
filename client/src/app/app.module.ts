@@ -13,6 +13,7 @@ import {ro} from '../assets/i18n/ro';
 import {Observable} from 'rxjs';
 import {ConfigModule} from './services/config';
 import {ComponentsModule} from './components';
+import {ServiceWorkerModule} from '@angular/service-worker';
 
 const {
   grantType,
@@ -43,7 +44,7 @@ export class I18nLoader implements TranslateLoader {
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({appId: 'serverApp'}),
     OAuthModule.forRoot({
       type: grantType,
       config: {
@@ -61,6 +62,10 @@ export class I18nLoader implements TranslateLoader {
     }),
     ConfigModule.forRoot(environment),
     ComponentsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     {

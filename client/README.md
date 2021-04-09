@@ -1,27 +1,53 @@
 # Client
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.6.
+### Development
 
-## Development server
+* Make sure angular-cli is installed: `npm install -g @angular/cli`. You might need sudo for this
+* Run `npm i` to install dependencies
+* Run `npm start` for a dev server. Navigate to `https://localhost:4200/`. The app will
+  automatically reload if you change any of the source files.
+* for SSR use `npm run dev:ssr`
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Build
 
-## Code scaffolding
+```shell
+npm run prod
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+or
 
-## Build
+```shell
+npm run build:ssr
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+for SSR support
 
-## Running unit tests
+### Tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```shell
+npm run test
+```
 
-## Running end-to-end tests
+### End-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```shell
+npm run e2e
+```
 
-## Further help
+### Docker build
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```shell
+docker build -t oauth-server_fe .
+```
+
+run:
+
+```shell
+docker run -d -p 80:80 oauth-server_fe
+```
+
+for testing on bridge mode:
+
+```shell
+docker run -d --network="host" oauth-server_fe
+```

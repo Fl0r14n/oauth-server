@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:13-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=sergtsop
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  be:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      - DEBUG=false
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=sergtsop
+      - DB_HOST=db
+      - DB_PORT=5432
+    volumes:
+      - media:/usr/src/app/media
+      - static:/usr/src/app/static
+    command: gunicorn -w 3 -b 0.0.0.0:8080 oauthserver.wsgi:application
+
+  fe:
+    build: ./client
+    ports:
+      - 80:80
+    depends_on:
+      - be
+    environment:
+      - PROXY_TARGET=http://be:8080
+    links:
+      - be
+
+volumes:
+  db:
+  media:
+  static:
+
