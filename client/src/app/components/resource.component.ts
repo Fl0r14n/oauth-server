@@ -26,7 +26,8 @@ export class ResourceComponent {
               private resourceService: ResourceService) {
     this.resources$ = oauthService.status$.pipe(
       switchMap(s => s === OAuthStatus.AUTHORIZED ? resourceService.getResources().pipe(
-        map(r => r.objects)) : of([])),
+        map(r => r.objects)
+      ) : of([])),
     )
   }
 }

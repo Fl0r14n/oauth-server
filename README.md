@@ -29,6 +29,7 @@ then paste de following
 ./manage.py createsuperuser
 ./manage.py sample_oauth
 ./manage.py sample_users
+./manage.py sample_data
 ```
 
 ### Dev Build
@@ -50,6 +51,7 @@ pip install -r requirements.txt
 ./manage.py createsuperuser
 ./manage.py sample_oauth
 ./manage.py sample_users
+./manage.py sample_data
 ```
 
 ### Run backend

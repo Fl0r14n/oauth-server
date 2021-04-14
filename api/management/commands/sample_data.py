@@ -17,5 +17,5 @@ class Command(BaseCommand):
         for val in resources:
             resource, created = Resource.objects.update_or_create(
                 title=val['title'],
-                defaults={}
+                defaults=val
             )

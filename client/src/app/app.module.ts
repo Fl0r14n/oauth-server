@@ -20,6 +20,7 @@ const {
   clientId,
   clientSecret,
   scope,
+  codeVerifier,
   authHost,
   tokenPath,
   revokePath,
@@ -54,9 +55,10 @@ export class I18nLoader implements TranslateLoader {
         clientId,
         clientSecret,
         scope,
-        tokenPath: `${authHost}${tokenPath}`,
-        revokePath: `${authHost}${revokePath}`,
-        authorizePath: `${authHost}${authorizePath}`,
+        codeVerifier,
+        authorizePath: `${authHost || ''}${authorizePath}`,
+        tokenPath: `${authHost || ''}${tokenPath}`,
+        revokePath: `${authHost || ''}${revokePath}`,
       }
     }),
     TranslateModule.forRoot({

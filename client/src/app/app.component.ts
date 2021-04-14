@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {OAuthService, OAuthStatus} from 'ngx-oauth';
 import {Observable} from 'rxjs';
 import {UserService} from './services/facades/user.service';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +13,7 @@ import {map} from 'rxjs/operators';
         <ul class="nav">
           <li class="nav-item">
             <oauth-login [profileName$]="profileName$"
-                         [i18n]="i18n"
-                         [scope]="scope"
-                         [(state)]="state"></oauth-login>
+                         [i18n]="i18n"></oauth-login>
           </li>
         </ul>
       </nav>
@@ -31,13 +29,9 @@ import {map} from 'rxjs/operators';
 export class AppComponent {
 
   status$: Observable<OAuthStatus>;
-
   i18n = {
     username: 'Username'
   };
-
-  scope = 'read';
-  state = 'dummy_state'
 
   constructor(private oauthService: OAuthService,
               private userService: UserService) {
@@ -45,8 +39,12 @@ export class AppComponent {
   }
 
   get profileName$(): Observable<string> {
-    return this.userService.user$.pipe(
-      map(u => u.email)
-    )
+    return this.status$.pipe(
+      filter(s => s === OAuthStatus.AUTHORIZED),
+      map(() => this.oauthService.token.id_token),
+      filter(t => !!t),
+      map(t => JSON.parse(atob(t.split('.')[1]))),
+      map(t => t.name || t.username || t.email || t.sub)
+    );
   }
 }
