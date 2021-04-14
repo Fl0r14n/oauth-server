@@ -11,7 +11,8 @@ applications = [
         'client_id': 'client_password',
         'client_secret': 'client_secret',
         'authorization_grant_type': Application.GRANT_PASSWORD,
-        'skip_authorization': True
+        'skip_authorization': True,
+        'algorithm': Application.RS256_ALGORITHM
     },
     {
         'name': 'Client Credential',
@@ -28,7 +29,8 @@ applications = [
         'client_secret': 'client_secret',
         'authorization_grant_type': Application.GRANT_AUTHORIZATION_CODE,
         'skip_authorization': True,
-        'redirect_uris': 'https://localhost:4200 http://localhost:4200'
+        'algorithm': Application.RS256_ALGORITHM,
+        'redirect_uris': 'https://localhost:4200/ http://localhost:4200/'
     },
     {
         'name': 'Introspect',
@@ -44,7 +46,7 @@ applications = [
 class Command(BaseCommand):
     def handle(self, *args, **options):
         for val in applications:
-            application, created = Application.objects.get_or_create(
+            application, created = Application.objects.update_or_create(
                 name=val['name'],
                 defaults=val
             )

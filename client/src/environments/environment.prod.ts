@@ -7,6 +7,7 @@ export const environment: Config = {
   grantType: OAuthType.RESOURCE,
   clientId: 'client_password',
   clientSecret: 'client_secret',
+  scope: 'openid',
   tokenPath: '/o/token/',
   revokePath: '/o/revoke/',
   languages: ['en', 'ro'],

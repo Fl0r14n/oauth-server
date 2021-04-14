@@ -52,10 +52,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
-    'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -82,6 +82,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'oauthserver.wsgi.application'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -124,7 +126,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = 'oauth.User'
-LOGIN_URL = 'admin/login/'
+# will append login to authorize endpoint
+LOGIN_URL = 'login/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -155,8 +158,21 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+oidc_key_file = open(os.environ.get('OIDC_RSA_PRIVATE_KEY',
+                                    os.path.join(BASE_DIR, 'oidc.key')))
+oidc_key = oidc_key_file.read()
+oidc_key_file.close()
+
 OAUTH2_PROVIDER = {
+    'OIDC_ENABLED': True,
+    'OIDC_RSA_PRIVATE_KEY': oidc_key,
+    'OAUTH2_VALIDATOR_CLASS': 'oauth.oauth_validator.CustomOAuth2Validator',
+    'OIDC_ISS_ENDPOINT': '/o/.well-known/openid-configuration/',
+    'ACCESS_TOKEN_EXPIRE_SECONDS': 600,
+    'REFRESH_TOKEN_EXPIRE_SECONDS': 1800,
+    'PKCE': True,
     'SCOPES': {
+        'openid': 'OpenID Connect scope',
         'read': 'Read scope',
         'write': 'Write scope',
         'introspection': 'Introspect token scope',

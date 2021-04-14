@@ -8,6 +8,7 @@ ADD api ./api
 ADD oauth ./oauth
 ADD oauthserver ./oauthserver
 COPY manage.py .
+COPY oidc.key .
 EXPOSE 8080
 RUN ["python", "manage.py", "collectstatic", "--no-input"]
 CMD ["gunicorn"  , "-w", "3", "-b", "0.0.0.0:8080", "oauthserver.wsgi:application"]

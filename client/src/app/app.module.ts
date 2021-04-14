@@ -19,8 +19,11 @@ const {
   grantType,
   clientId,
   clientSecret,
+  scope,
+  authHost,
   tokenPath,
   revokePath,
+  authorizePath,
   apiHost,
   captchaSiteKey
 } = environment;
@@ -50,8 +53,10 @@ export class I18nLoader implements TranslateLoader {
       config: {
         clientId,
         clientSecret,
-        tokenPath: `${apiHost}${tokenPath}`,
-        revokePath: `${apiHost}${revokePath}`
+        scope,
+        tokenPath: `${authHost}${tokenPath}`,
+        revokePath: `${authHost}${revokePath}`,
+        authorizePath: `${authHost}${authorizePath}`,
       }
     }),
     TranslateModule.forRoot({

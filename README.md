@@ -2,6 +2,12 @@
 
 A test oauth server
 
+## Generate OIDC key
+
+```shell
+openssl genrsa -out oidc.key 4096
+```
+
 ## Get just the auth-server up and running
 
 ```shell

@@ -8,9 +8,11 @@ import {OAuthType} from 'ngx-oauth';
 export const environment: Config = {
   production: false,
   apiHost: '',
-  grantType: OAuthType.RESOURCE,
-  clientId: 'client_password',
+  grantType: OAuthType.AUTHORIZATION_CODE,
+  clientId: 'client_application',
   clientSecret: 'client_secret',
+  scope: 'openid',
+  authorizePath: '/o/authorize/',
   tokenPath: '/o/token/',
   revokePath: '/o/revoke/',
   languages: ['en', 'ro'],

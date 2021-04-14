@@ -18,6 +18,10 @@ class User(AbstractUser):
                                 upload_to='profile_images',
                                 help_text='Profile picture')
 
+    @property
+    def id(self):
+        return getattr(self, self.USERNAME_FIELD)
+
 
 class Group(Group):
     class Meta:

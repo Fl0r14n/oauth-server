@@ -31,7 +31,7 @@
     "express": "^4.15.2",
     "http-proxy-middleware": "^1.1.0",
     "ng-recaptcha": "^7.0.1",
-    "ngx-oauth": "^0.5.1",
+    "ngx-oauth": "^0.5.2",
     "rxjs": "~6.6.7",
     "send-seekable": "^1.0.4",
     "tslib": "^2.2.0",

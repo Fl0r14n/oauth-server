@@ -14,6 +14,7 @@ export interface Config {
   apiPath?: string;
   clientId?: string;
   clientSecret?: string;
+  scope?: string;
   authorizePath?: string;
   tokenPath?: string;
   revokePath?: string;
